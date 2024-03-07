@@ -1,0 +1,130 @@
+<header>
+  <h1>One-time Loan Payment</h1>
+  <h3>Fill out the form below to complete the payment</h3>
+</header>
+<div class="container">
+
+  <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentForm()">
+    <mat-card>
+      <mat-card-header>
+        <p>Loan Acount Number</p>
+        <mat-form-field>
+          <mat-label>Loan Account Number</mat-label>
+          <input matInput formControlName="loanAcctNumber" type="number">
+        </mat-form-field>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6 col-xs-12 col-sm-12">
+           <div class="row">
+            <div class="col-12 dflex-col">
+              <mat-radio-group formControlName="acctType">
+                <mat-label>Type of Account</mat-label>
+                <mat-radio-button value="checking">Checking</mat-radio-button>
+                <mat-radio-button value="debit">Debit Card</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            @if(isChecking){
+              <div formGroupName="checkingAccount" class="row">
+                <div class="col-12 dflex-col">
+                  <label>Routing Number</label>
+                  <mat-form-field>
+                    <mat-label>Routing Number</mat-label>
+                    <input matInput formControlName="routingNumber"  type="number">
+                    <mat-error *ngIf="checkingAccount.controls['routingNumber'].errors?.['routingNumErr']"> Routing number must be atleast 9 numbers long</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 dflex-col">
+                  <label>Bank Acount Number</label>
+                  <mat-form-field>
+                    <mat-label>Bank Acount Number</mat-label>
+                    <input matInput formControlName="bankAcctNumber"  type="number">
+                  </mat-form-field>
+                </div>
+                <div class="col-12 dflex-col">
+                  <label>Confirm Bank Account Number</label>
+                  <mat-form-field>
+                    <mat-label>Confirm Bank Account Number</mat-label>
+                    <input matInput formControlName="confirmBankAcctNumber"  type="number">
+                  </mat-form-field>
+                </div>
+              </div>
+            }@else {
+              <div class="row" formGroupName="debitCard">
+                <div class="col-12 dflex-col">
+                  <label>Card Number</label>
+                  <mat-form-field>
+                    <mat-label>Card Number</mat-label>
+                    <input matInput formControlName="cardNumber"  type="number">
+                  </mat-form-field>
+                </div>
+                <div class="col-12 dflex-col">
+                  <label>Name On Card</label>
+                  <mat-form-field>
+                    <mat-label>Name On Card</mat-label>
+                    <input matInput formControlName="nameOnCard">
+                  </mat-form-field>
+                </div>
+                <div class="row">
+                  <div class="col-6 dflex-col">
+                    <label>Expiration Date</label>
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Expiration Date</mat-label>
+                      <input matInput [matDatepicker]="picker">
+                      <mat-hint>MM/DD/YYYY</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6 dflex-col">
+                    <label>CVV</label>
+                    <mat-form-field>
+                      <mat-label>CVV</mat-label>
+                      <input matInput formControlName="CVV"  type="number">
+                      <mat-error  *ngIf="debitCard.controls['CVV'].errors?.['cvvErr']">CVV should be exactly 3 numbers</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            }
+
+
+           </div>
+          </div>
+
+          <div class="col-md-6 col-xs-12 col-sm-12">
+            @if(isChecking){
+              <div class="row">
+                <div class="col-12 text-align">
+                  Where can i find routing and account number?
+                </div>
+                <div class="col-12">
+                  <img src="assets/check.png" alt="" width="100%">
+                </div>
+              </div>
+            }@else {
+
+              <div class="row">
+                <div class="col-12 text-align">
+                  Where can i find CVV?
+                </div>
+                <div class="col-12">
+                  <img src="assets/cvv.png" alt="" width="90%">
+                </div>
+              </div>
+            }
+
+          </div>
+        </div>
+      </mat-card-content>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <button mat-raised-button color="primary" [disabled]="isChecking ? !checkingAccount.valid : !debitCard.valid">Make Payment</button>
+        </div>
+      </div>
+    </mat-card>
+
+  </form>
+
+</div>
+

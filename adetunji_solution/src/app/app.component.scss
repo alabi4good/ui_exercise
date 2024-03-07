@@ -1,0 +1,55 @@
+:host{
+    width: 80%;
+    height:100%;
+    margin: auto;
+
+}
+.container{
+    width: 80%;
+    height: 65%;
+    margin: auto;
+    border: 1px solid black;
+}
+:host::ng-deep{
+    mat-form-field, mat-divider{
+        margin-bottom: 10px;
+    }
+    mat-card{
+       box-shadow: none;
+    }
+    mat-card-header{
+        display: block;
+    }
+    .br{
+        border-right: 1px solid black;
+    }
+}
+.dflex-col{
+    display: flex;
+    flex-direction: column;
+}
+.col-md-6{
+    padding: 0px;
+}
+.text-align{
+    text-align: center;
+}
+
+header{
+    text-align: center;
+    margin: 20px;
+    h1{
+
+        font-size: 40px;
+
+    }
+
+}
+button{
+    width: 100%;
+}
+@media screen and (max-width: 850px){
+    .container{
+        height: 100%;
+    }
+}
